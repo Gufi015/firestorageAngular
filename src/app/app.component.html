@@ -1,21 +1,30 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="contenedor">
+  <div class="contenedor_formulario">
+    <h1 class="is-size-1">Subir Archivos a CloudStorage</h1>
+    <P class="download" *ngIf="finalizado"> URL de Descarga <a href="{{URLPublica}}" target="_blank">Descargar</a></P>
+
+    <form [formGroup]="archivoForm" (ngSubmit)="subirArchivo()" >
+      <div class="file has-name is-boxed">
+        <label class="file-label">
+          <input type="file" class="file-input" name="resume" formControlName="archivo" (change)="cambioArchivo($event)">
+          <span class="file-cta">
+            <span class="file-label">
+              Elegir un archivo...
+            </span>
+          </span>
+          <span class="file-name">
+           {{mensajeArchivo}}
+          </span>
+        </label>
+      </div>
+      <hr>
+      <progress *ngIf="porcentaje > 0 && porcentaje < 100"
+      class="progress is-large is-success"
+      value="{{porcentaje}}" max="100" >{{porcentaje}}%</progress>
+      <button [ngClass]="{'button': true, 'is-success':true, 'is-large': true, 'is-loading': porcentaje >0 && porcentaje < 100}"
+        [disabled]="!archivoForm.valid" class="button is-success is-large">Subir Archivo</button>
+    </form>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
 <router-outlet></router-outlet>
